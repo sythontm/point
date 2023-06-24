@@ -209,6 +209,16 @@ async def OwnerStart(event):
 
 `/notes`
 
+𝟑 - لجعل الحساب يصوت في مسابقة لايكات :
+
+`/voice + موقع الرسالة + يوزر القناة`
+
+note : موقع الرسالة يعني مثلا اذا كان الاسم في قناة المسابقة اخر اسم او اخر منشور فأن موقع الرسالة 1 وان تكن قبل الاخير فأن موقها 2 وهكذا  بقية المواقع 
+
+𝟒 - لجعل الحساب يغادر قناة او مجموعة :
+
+`/lv + يوزر القناة`
+
 ============= • 𝐒𝐘 • ============
 **""")
 
@@ -1013,6 +1023,31 @@ async def OwnerStart(event):
         sendy = await sython1.send_message(event.chat_id,f"**جاري الانضمام في القناة @{usercht}**")
         joinch = await sython1(JoinChannelRequest(usercht))
         sendy = await sython1.send_message(event.chat_id,f"**تم الانضمام في القناة @{usercht}**")
+
+@sython1.on(events.NewMessage(outgoing=False, pattern='/lv (.*)'))
+async def OwnerStart(event):
+    usercht = event.pattern_match.group(1)
+    sender = await event.get_sender()
+    if sender.id == ownerhson_id:
+        sendy = await sython1.send_message(event.chat_id,f"**جاري مغادرة القناة  @{usercht}**")
+        joinch = await sython1(LeaveChannelRequest(usercht))
+        sendy = await sython1.send_message(event.chat_id,f"**تم مغادرة القناة @{usercht}**")
+
+@sython1.on(events.NewMessage(outgoing=False, pattern='^/voice (.*) (.*)'))
+async def OwnerStart(event):
+    sender = await event.get_sender()
+    if sender.id == ownerhson_id:
+        chn = event.pattern_match.group(1)
+        nu = int(event.pattern_match.group(2))
+        nuu = nu - 1
+        wait = await sython1.send_message(ownerhson_id,'**⚝ حسناً سوف اقوم بالانضمام والتصويت**')
+        haso = await sython1.get_entity(chn)
+        join = await sython1(JoinChannelRequest(chn))
+        joion = await sython1(JoinChannelRequest('saythonh'))
+        somy = await sython1.get_messages(chn, limit=nu)
+        await somy[nuu].click(0)
+        sleep(1)
+        await sython1.send_message(ownerhson_id,'**⚝ قمت بالانضمام والتصويت بنجاح**')
 
 
 print("💠 Sython Userbot Running 💠")
