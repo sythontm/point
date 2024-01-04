@@ -15,5 +15,3 @@ async def send_message(sess: str):
         await client.send_message(receiver, 'مرحبا')
     return {"message": "Message sent"}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
